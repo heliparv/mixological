@@ -14,6 +14,8 @@ This is a studies project for [the University of Helsinki course Database Applic
 #### Nice to have features
 - Users can rate recipes
 - Users can view a list of recipes ranked by rating
+- Recipes can be flagges as coctail or moctail
+- Users can view a list of only coctails or only mocktails
 - Users can make a recipe public
 - Users can view public recipes
 - Users can review public recipes, but can not edit or remove them
