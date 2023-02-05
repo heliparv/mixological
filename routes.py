@@ -7,23 +7,23 @@ def index():
 
 @app.route("/add_recipe")
 def add_recipe():
-    return render_template("error.html", message="Page hasn't been coded yet")
+    return render_template("error.html", message="Adding recipe hasn't been coded yet")
     #TODO
     #creates ID for recipe, notes user ID and directs to edit recipe
 
 @app.route("/edit_recipe")
 def edit_recipe():
-    return render_template("error.html", message="Page hasn't been coded yet")
+    return render_template("error.html", message="Recipe editing hasn't been coded yet")
     #TODO
 
 @app.route("/logout")
 def logout():
-    return render_template("error.html", message="Page hasn't been coded yet")
+    return render_template("error.html", message="Logout hasn't been coded yet")
     #TODO
 
 @app.route("/login")
 def login():
-    return render_template("error.html", message="Page hasn't been coded yet")
+    return render_template("error.html", message="Login hasn't been coded yet")
     #TODO
 
 @app.route("/register", methods=["GET", "POST"])
