@@ -4,7 +4,7 @@
 {% block content %}
 
 {% if session.username %}
-<a href="/add_recipe">Add a recipe</a>|<a href="/logout">Kirjaudu ulos</a>
+<a href="/add_recipe">Add a recipe</a><a href="/logout">Kirjaudu ulos</a>
 {% else %}
 <p>Log in</p>
 <form action="/login" method="POST">
@@ -13,9 +13,9 @@
     <input type="submit" value="Log in">
 </form>
 <br>
-<a href="/register">Register</a>|<a href="/forgot_password">Forgot password</a>
+<a href="/register">Register</a>
 {% endif %}
 <br>
 <hr>
-<p>Here's where the recipe list would be if I knew how to use databases</p>
+<p>Here's where the recipe list would be if I knew how to use a database</p>
 {% endblock %}
