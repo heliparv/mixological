@@ -2,13 +2,13 @@
 classDiagram
     class Recipes{
         id : int
-        name : varchar
-        directions : varchar
+        title : text
+        directions : text
         user_id : int
     } 
     class Ingredients{
-        name : varchar
-        quantity : varchar
+        name : text
+        quantity : text
         recipe_id : int
     }
     class Ratings{
@@ -18,8 +18,8 @@ classDiagram
     }
     class Users{
         user_id : int
-        username : varchar
-        password : varchar
+        username : text
+        password : text
     }
     Recipes -- Users
     Recipes -- Ingredients
