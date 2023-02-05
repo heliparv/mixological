@@ -36,7 +36,7 @@ deactivate
 ```
 
 ### Project status
-The project is currently very much not close to functional, but below are listed the features that the app hopefully has at some point soon. (:
+The project is currently very much not close to functional, mostly due to issues scheduling time to work on it. Below are listed the features that the app hopefully has at some point soon. (:
 
 ### Description of desired features
 #### Core features
