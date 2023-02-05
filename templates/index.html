@@ -2,5 +2,20 @@
 {% extends "layout.html" %}
 {% block title %}Frontpage{% endblock %}
 {% block content %}
-<p>Let's get mixing</p>
+
+{% if session.username %}
+<a href="/add_recipe">Add a recipe</a>|<a href="/logout">Kirjaudu ulos</a>
+{% else %}
+<p>Log in</p>
+<form action="/login" method="POST">
+    <p>Username:<br> <input type="text" name="username"> </p>
+    <p>Password:<br> <input type="password" name="password"> </p>
+    <input type="submit" value="Log in">
+</form>
+<br>
+<a href="/register">Register</a>|<a href="/forgot_password">Forgot password</a>
+{% endif %}
+<br>
+<hr>
+<p>Here's where the recipe list would be if I knew how to use databases</p>
 {% endblock %}
