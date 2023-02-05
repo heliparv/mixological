@@ -4,6 +4,7 @@ classDiagram
         id : int
         title : text
         directions : text
+        alcohol : int
         user_id : int
     } 
     class Contents{
