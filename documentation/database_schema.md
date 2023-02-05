@@ -6,15 +6,15 @@ classDiagram
         directions : text
         user_id : int
     } 
-    class Ingredients{
-        name : text
+    class Contents{
+        ingredient : text
         quantity : text
         recipe_id : int
     }
     class Ratings{
+        rating : int
         user_id : int
         recipe_id : int
-        rating : int
     }
     class Users{
         user_id : int
@@ -22,7 +22,7 @@ classDiagram
         password : text
     }
     Recipes -- Users
-    Recipes -- Ingredients
+    Recipes -- Contents
     Recipes -- Ratings
     Users -- Ratings
 ```
