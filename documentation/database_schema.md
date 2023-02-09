@@ -7,8 +7,12 @@ classDiagram
         alcohol : int
         user_id : int
     } 
-    class Contents{
+    class Ingredients{
+        id : int
         ingredient : text
+    }
+    class Contents{
+        ingredient_id : text
         quantity : text
         recipe_id : int
     }
@@ -26,4 +30,5 @@ classDiagram
     Recipes -- Contents
     Recipes -- Ratings
     Users -- Ratings
+    Contents -- Ingredients
 ```
