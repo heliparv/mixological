@@ -16,14 +16,13 @@ def edit_recipe():
     return render_template("error.html", message="Recipe editing hasn't been coded yet")
     #TODO
 
+@app.route("/login")
+def login():
+    return render_template("login.html")
+
 @app.route("/logout")
 def logout():
     return render_template("error.html", message="Logout hasn't been coded yet")
-    #TODO
-
-@app.route("/login")
-def login():
-    return render_template("error.html", message="Login hasn't been coded yet")
     #TODO
 
 @app.route("/register", methods=["GET", "POST"])
