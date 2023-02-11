@@ -4,23 +4,41 @@ A small app to save and find recipes for cocktails and moctails
 This is a studies project for [the University of Helsinki course Database Application](https://studies.helsinki.fi/courses/cu/hy-CU-118025659-2021-08-01)
 
 ### How to test project
-The project is currently not online, it can be tested locally by downloading the source code and doing the following:
+The project is currently not online, it can be tested locally by downloading the source code and following these instructions.
 
-Navigate to the app folder on your terminal
+PostgreSQL needs to be downloaded. It can be downloaded with [this script](https://github.com/hy-tsoha/local-pg) or [directly from the PostgreSQL web page](https://www.postgresql.org/download/).
+
+Navigate to the app root folder on your terminal
+
+In the app root folder create a file called ".env" with the following contents
+```bash
+DATABASE_URL = "postgresql:///user"
+```
+here "user" is your username in the system.
 
 Create a virtual environment
 ```bash
 python3 -m venv venv
 ```
 
-Activate virtual environment
+Activate the virtual environment
 ```bash
 source venv/bin/activate
 ```
 
-Install flask library
+Install flask library in the virtual environment
 ```bash
 pip install flask
+```
+
+Have your database running in the backgroud. If you used the download script written for this course and liked above, you can do so by opening a new terminal that you keep open after entering the command 
+```bash
+start-pg.sh
+```
+
+Return to the terminal with your virtual environment and get the database schema with
+```bash
+psql < schema.sql
 ```
 
 Run app
