@@ -31,8 +31,8 @@ def login():
 
 @app.route("/logout")
 def logout():
-    return render_template("error.html", message="Logout hasn't been coded yet")
-    #TODO
+    users.logout()
+    return redirect("/")
 
 @app.route("/register", methods=["GET", "POST"])
 def register():

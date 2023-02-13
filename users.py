@@ -24,3 +24,6 @@ def login(username, password):
             return True
         else:
             return False
+
+def logout():
+    del session["user_id"]
