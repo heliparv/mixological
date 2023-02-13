@@ -1,5 +1,6 @@
 from app import app
-from flask import render_template, request
+from flask import render_template, request, redirect
+import users
 
 @app.route("/")
 def index():
@@ -33,5 +34,7 @@ def register():
         password1 = request.form["password1"]
         if password1 != request.form["password2"]:
             return render_template("error.html", message="Passwords don't match")
+        elif users.register(request.form["username"], password1):
+            return redirect("/")
         else:
-            return render_template("error.html", message="User system not yet functional")
+            return render_template("error.html", message="Register failed due to database error")
