@@ -3,7 +3,13 @@ A small app to save and find recipes for cocktails and moctails
 
 This is a studies project for [the University of Helsinki course Database Application](https://studies.helsinki.fi/courses/cu/hy-CU-118025659-2021-08-01)
 
+### Project status
+The project is in the "merry" situation that I have not for the life of me been able to run the database in this project or any other database app on my computer (even the ones that were previously working), but have not had the time to come to campus and ask IT or course assistants so... :)
+
+
 ### How to test project
+
+#### First time set up
 The project is currently not online, it can be tested locally by downloading the source code and following these instructions.
 
 PostgreSQL needs to be downloaded. It can be downloaded with [this script](https://github.com/hy-tsoha/local-pg) or [directly from the PostgreSQL web page](https://www.postgresql.org/download/).
@@ -12,9 +18,15 @@ Navigate to the app root folder on your terminal
 
 In the app root folder create a file called ".env" with the following contents
 ```bash
-DATABASE_URL = "postgresql:///user"
+DATABASE_URL="postgresql:///user"
+SECRET_KEY ="key"
 ```
-here "user" is your username in the system.
+here "user" is your username in the system and key is a token you can create for example with the following commands in a terminal
+```bash
+python3
+>>> import secrets
+>>> secrets.token_hex(16)
+```
 
 Create a virtual environment
 ```bash
@@ -53,8 +65,22 @@ You can exit the project by closing the browser window, using "control+C" in you
 deactivate
 ```
 
-### Project status
-The project is currently very much not close to functional, mostly due to issues scheduling time to work on it. Below are listed the features that the app hopefully has at some point soon. (:
+#### Using project after first time set up
+Activate database in the background, for example by using
+```bash
+start-pg.sh
+```
+
+In a new terminal window activate the virtual environment
+```bash
+source venv/bin/activate
+```
+
+Run app
+```bash
+flask run
+```
+
 
 ### Description of desired features
 #### Core features
