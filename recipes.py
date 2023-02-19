@@ -32,18 +32,28 @@ def get_recipe_by_id(recipe_id):
 
 def get_contents_by_recipe_id(recipe_id):
     command = "SELECT ingredient_id, quantity FROM recipes WHERE recipe_id=:recipe_id"
-    result = db.session.execute(command, {"recipe_id":recipe_id})
-    contents = result.fetchall()
-    ingredients = []
+    try:
+        result = db.session.execute(command, {"recipe_id":recipe_id})
+        contents = result.fetchall()
+        ingredients = []
     #for i in contents:
     #choose ingredient name based on ingredient id in result, haven't figured it out
     #not sure if ditching ingredients table would be better
-    return contents, ingredients
+        return contents, ingredients
+    except:
+        return False
+
+def create_new_ingredient(ingredient):
+    command = "INSERT INTO ingredients (ingredient) VALUES (:ingredient)"
+    try:
+        db.session.execute(command, {"ingredient":ingredient})
+        db.session.commit()
+        return True
+    except:
+        return False
 
 
 #TODO
-#def get_recipe_by_id(id):
-#add_directions(recipe_id, text)
 #create_new_ingredient(ingredient)
 #add_ingredient_to_recipe(recipe_id, ingredient_id, quantity)
 #delete_ingredient_from_recipe
