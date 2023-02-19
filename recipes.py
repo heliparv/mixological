@@ -18,11 +18,12 @@ def add_new_recipe(title, alcohol):
 def add_directions(recipe_id, text):
     command = "UPDATE recipes SET directions = text WHERE id = recipe_id"
     try:
-        db.session.execute(command, {"text":text})
+        db.session.execute(command, {"text":text, "recipe_id":recipe_id})
         db.session.commit()
         return True
     except:
         return False
+
 
 #TODO
 #def get_recipe_by_id(id):
