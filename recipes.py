@@ -3,7 +3,7 @@ from flask import session
 import users
 
 def add_new_recipe(title, alcohol):
-    user_id = users.user_id()
+    user_id = users.get_user_id()
     if user_id == 0:
         return 0
     command = "INSERT INTO recipes (title, alcohol, user_id) VALUES (:content, :alcohol, user_id)"
@@ -13,6 +13,9 @@ def add_new_recipe(title, alcohol):
         return True
     except:
         return False
+
+#def get_recipe_by_id(id):
+
 
 #TODO
 #add_directions(recipe_id, text)

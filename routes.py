@@ -14,7 +14,7 @@ def add_recipe():
     if request.method == "POST":
         title = request.form["title"]
         alcohol = request.form["alcohol"]
-        value = recipes.add_recipe(title, alcohol)
+        value = recipes.add_new_recipe(title, alcohol)
         if value:
             if value == 0:
                 return render_template("error.html", message="Please log in before adding recipe.")
