@@ -97,5 +97,5 @@ def edit_alcohol_status(recipe_id, status):
         return False
 
 #TODO
-#get_racipes_by_ingredient(ingredient)
+#get_recipes_by_ingredient(ingredient_id):
 #get_recipes_by_name(title)
