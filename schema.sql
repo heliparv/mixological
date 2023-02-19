@@ -6,6 +6,7 @@ CREATE TABLE users (
 CREATE TABLE recipes (
     id SERIAL PRIMARY KEY,
     title TEXT UNIQUE,
+    alcohol INTEGER,
     directions TEXT,
     user_id INTEGER REFERENCES users
 );
