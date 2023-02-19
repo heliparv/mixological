@@ -87,7 +87,15 @@ def edit_ingredient_quantity_in_recipe(content_id, quantity):
     except:
         return False
 
+def edit_alcohol_status(recipe_id, status):
+    command = "UPDATE recipes SET alcohol=:status WHERE id=:recipe_id"
+    try:
+        db.session.execute(command, {"status":status, "recipe_id":recipe_id})
+        db.session.commit()
+        return True
+    except:
+        return False
+
 #TODO
-#edit_alcohol_status(recipe_id, status)
 #get_racipes_by_ingredient(ingredient)
 #get_recipes_by_name(title)
