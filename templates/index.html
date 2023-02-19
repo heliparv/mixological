@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 {% extends "layout.html" %}
 {% block title %}Frontpage{% endblock %}
+{% block header %}All of your favourite cocktail and mocktail recipes{% endblock %}
+
 {% block content %}
 
 {% if session.username %}
-<a href="/add_recipe">Add a recipe</a><a href="/logout">Kirjaudu ulos</a>
+<a href="/add_recipe">Add a recipe</a>
+<br>
+<a href="/logout">Kirjaudu ulos</a>
 {% else %}
-<a href="/login">Log in</a><a href="/register">Register</a>
+<a href="/login">Log in</a>
+<br>
+<a href="/register">Register</a>
 {% endif %}
 <br>
 <hr>
-<p>Here's where the recipe list would be if the database was up</p>
+<p>Here's where the recipe list would be if the database was working as it should</p>
 {% endblock %}
