@@ -16,17 +16,34 @@ def add_recipe():
         alcohol = request.form["alcohol"]
         value = recipes.add_new_recipe(title, alcohol)
         if value:
-            if value == 0:
+            if value == -1:
                 return render_template("error.html", message="Please log in before adding recipe.")
             else:
-                return redirect("/edit_recipe")
+                edit_recipe(title)
         return render_template("error.html", message="Could not add new recipe.")
 
-
 @app.route("/edit_recipe")
-def edit_recipe():
-    return render_template("error.html", message="Recipe editing hasn't been coded yet")
+def edit_recipe(title):
     #TODO
+    #currently not getting stuff from database because have not yet figured out how to database
+    title = "Shirley Temple"
+    alcohol = 0
+    return render_template("error.html", message="Recipe editing hasn't been coded yet")
+
+@app.route("/view_recipe")
+def view_recipe():
+    #TODO
+    #here's where we would get recipe info
+    #but now just testing layout with some values
+    title = "Shirley Temple"
+    alcohol = "moctail"
+    ingredients = [["grenadine", "0.75 cl"],
+                   ["lemon juice", "1 cl"],
+                   ["ginger beer", "10 cl"],
+                   ["ice", ""],
+                   ["cherry", "1"]]
+    directions = "Fill glass with ice, pour grenadine and ginger beer, mix and garnish with cherry"
+    return render_template("view_recipe.html", title=title, alcohol=alcohol, ingredients=ingredients, directions=directions)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():

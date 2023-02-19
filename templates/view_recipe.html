@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% extends "layout.html" %}
+{% block title %}{{title}}{% endblock %}
+{% block content %}
+
+<h2>{{title}}</h2>
+{{alcohol}}
+<br>
+<br>
+{% for ingredient in ingredients %}
+{{ingredient.0}}&emsp;{{ingredient.1}}<br>
+{% endfor %}
+<br>
+<p>{{directions}}</p>
+<hr>
+<a href="/">Return to front page</a>
+{% endblock %}
