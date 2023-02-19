@@ -52,6 +52,13 @@ def create_new_ingredient(ingredient):
     except:
         return False
 
+def get_ingredient_id_by_name(ingredient):
+    command = "SELECT id FROM ingredients WHERE ingredient=:ingredient"
+    try:
+        result = db.session.execute(command, {"ingredient":ingredient})
+        return result.fetchone()
+    except:
+        return False
 
 #TODO
 #create_new_ingredient(ingredient)
