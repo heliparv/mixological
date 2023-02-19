@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+{% extends "layout.html" %}
+{% block title %}Add a recipe{% endblock %}
+{% block content %}
+<form action="/add_recipe" method="POST">
+    <p>Recipe name:<br> <input type="text" name="title"> </p>
+    <p><input type="radio" name="alcohol" value="1">cocktail
+    <input type="radio" name="alcohol" value="0">mocktail </p>
+    <input type="submit" value="Next">
+</form>
+
+<a href="/">Return to front page</a>
+{% endblock %}

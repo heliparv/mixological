@@ -1,16 +1,27 @@
 from app import app
 from flask import render_template, request, redirect
 import users
+import recipes
 
 @app.route("/")
 def index():
     return render_template("index.html")
 
-@app.route("/add_recipe")
+@app.route("/add_recipe", methods=["GET", "POST"])
 def add_recipe():
-    return render_template("error.html", message="Adding recipe hasn't been coded yet")
-    #TODO
-    #creates ID for recipe, notes user ID and directs to edit recipe
+    if request.method == "GET":
+        return render_template("add_recipe.html")
+    if request.method == "POST":
+        title = request.form["title"]
+        alcohol = request.form["alcohol"]
+        value = recipes.add_recipe(title, alcohol)
+        if value:
+            if value == 0:
+                return render_template("error.html", message="Please log in before adding recipe.")
+            else:
+                return redirect("/edit_recipe")
+        return render_template("error.html", message="Could not add new recipe.")
+
 
 @app.route("/edit_recipe")
 def edit_recipe():
@@ -37,8 +48,10 @@ def logout():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "GET":
+        print("render template")
         return render_template("register.html")
     if request.method == "POST":
+        print("post")
         username = request.form["username"]
         password1 = request.form["password1"]
         password2 = request.form["password2"]
