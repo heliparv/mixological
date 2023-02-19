@@ -16,7 +16,7 @@ def add_new_recipe(title, alcohol):
         return False
 
 def add_directions(recipe_id, text):
-    command = "UPDATE recipes SET directions = text WHERE id = recipe_id"
+    command = "UPDATE recipes SET directions=:text WHERE id=:recipe_id"
     try:
         db.session.execute(command, {"text":text, "recipe_id":recipe_id})
         db.session.commit()
@@ -78,8 +78,16 @@ def delete_ingredient_from_recipe(recipe_id, ingredient_id):
     except:
         return False
 
+def edit_ingredient_quantity_in_recipe(content_id, quantity):
+    command = "UPDATE contents SET quantity=:quantity WHERE id=:content_id"
+    try:
+        db.session.execute(command, {"quantity":quantity, "content_id":content_id})
+        db.session.commit()
+        return True
+    except:
+        return False
+
 #TODO
-#edit_ingredient_quantity_in_recipe
 #edit_alcohol_status(recipe_id, status)
 #get_racipes_by_ingredient(ingredient)
 #get_recipes_by_name(title)
