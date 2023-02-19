@@ -5,13 +5,13 @@ CREATE TABLE users (
 );
 CREATE TABLE recipes (
     id SERIAL PRIMARY KEY,
-    title TEXT,
+    title TEXT UNIQUE,
     directions TEXT,
     user_id INTEGER REFERENCES users
 );
 CREATE TABLE ingredients (
     id SERIAL PRIMARY KEY,
-    ingredient TEXT
+    ingredient TEXT UNIQUE
 );
 CREATE TABLE contents (
     ingredient_id INTEGER REFERENCES ingredients,
