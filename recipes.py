@@ -24,6 +24,15 @@ def add_directions(recipe_id, text):
     except:
         return False
 
+def add_ingredient_to_recipe(recipe_id, ingredient_id, quantity):
+    command = "INSERT INTO contents (ingredient_id, quantity, recipe_id) VALUES (:ingredient_id, :quantity, :recipe_id)"
+    try:
+        db.session.execute(command, {"ingredient_id":ingredient_id, "quantity":quantity, "recipe_id":recipe_id})
+        db.session.commit()
+        return True
+    except:
+        return False
+
 def get_recipe_by_id(recipe_id):
     command = "SELECT title, alcohol, directions FROM recipes WHERE id=:recipe_id"
     result = db.session.execute(command, {"recipe_id":recipe_id})
@@ -60,10 +69,16 @@ def get_ingredient_id_by_name(ingredient):
     except:
         return False
 
+def delete_ingredient_from_recipe(recipe_id, ingredient_id):
+    command = "DELETE FROM contents WHERE recipe_id=:recipe_id AND ingredient_id=:ingredient_id"
+    try:
+        db.session.execute(command, {"recipe_id":recipe_id, "ingredient_id":ingredient_id})
+        db.session.commit()
+        return True
+    except:
+        return False
+
 #TODO
-#create_new_ingredient(ingredient)
-#add_ingredient_to_recipe(recipe_id, ingredient_id, quantity)
-#delete_ingredient_from_recipe
 #edit_ingredient_quantity_in_recipe
 #edit_alcohol_status(recipe_id, status)
 #get_racipes_by_ingredient(ingredient)
