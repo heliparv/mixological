@@ -4,10 +4,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 def register(username, password):
     hashword = generate_password_hash(password)
-    print("hashword generated")
     try:
         command = "INSERT INTO users (username,password) VALUES (:username,:password)"
-        print(username, hashword)
         db.session.execute(command, {"username":username, "password":hashword})
         db.session.commit()
     except:
