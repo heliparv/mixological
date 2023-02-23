@@ -38,12 +38,12 @@ Activate the virtual environment
 source venv/bin/activate
 ```
 
-Install flask library in the virtual environment
+Install project dependencies with the following command
 ```bash
-pip install flask
+pip install -r requirements.txt
 ```
 
-Have your database running in the backgroud. If you used the download script written for this course and liked above, you can do so by opening a new terminal that you keep open after entering the command 
+Have your database running in the backgroud. If you used the download script written for this course and linked above, you can do so by opening a new terminal that you keep open after entering the command 
 ```bash
 start-pg.sh
 ```
