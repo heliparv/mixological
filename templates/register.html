@@ -3,9 +3,7 @@
 {% block title %}Register{% endblock %}
 {% block content %}
 <form action="/register" method="POST">
-    <p>Username must have at least 3 characters</p>
     <p>Username:<br> <input type="text" name="username" minlength="3"></p>
-    <p>Password must have at least 6 six characters but no more than 24 characters</p>
     <p>Password:<br> <input type="password" name="password1" size="20" minlength="6" maxlength="24"> </p>
     <p>Repeat password:<br> <input type="password" name="password2" size="20" minlength="6" maxlength="24"> </p>
     <input type="submit" value="Register">
