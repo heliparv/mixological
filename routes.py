@@ -65,10 +65,8 @@ def logout():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "GET":
-        print("render template")
         return render_template("register.html")
     if request.method == "POST":
-        print("post")
         username = request.form["username"]
         password1 = request.form["password1"]
         password2 = request.form["password2"]
@@ -76,5 +74,4 @@ def register():
             return render_template("error.html", message="Passwords don't match")
         elif users.register(username, password1):
             return redirect("/")
-        else:
-            return render_template("error.html", message="Register failed")
+        return render_template("error.html", message="Register failed, check database connection")
