@@ -13,11 +13,13 @@ def add_recipe():
         return render_template("add_recipe.html")
     if request.method == "POST":
         title = request.form["title"]
-        alcohol = request.form["alcohol"]
-        value = recipes.add_new_recipe(title, alcohol)
+        #alcohol = request.form["alcohol"]
+        value = recipes.add_new_recipe(title, request.form["alcohol"])
         if value:
             if value == -1:
                 return render_template("error.html", message="Please log in before adding recipe.")
+            elif value == -2:
+                return render_template("error.html", message="Recipe title taken.")
             else:
                 edit_recipe(title)
         return render_template("error.html", message="Could not add new recipe.")

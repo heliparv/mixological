@@ -9,9 +9,9 @@ def add_new_recipe(title, alcohol):
         return -1
     if get_recipe_by_full_title(title):
         return -2
-    command = "INSERT INTO recipes (title,alcohol,directions,user_id) VALUES (:content,:alcohol,:directions,:user_id)"
+    command = "INSERT INTO recipes (title,alcohol,directions,user_id) VALUES (:title,:alcohol,:directions,:user_id)"
     try:
-        directions = ""
+        directions = "No directions added yet"
         db.session.execute(text(command), {"title":title, "alcohol":alcohol, "directions":directions, "user_id":user_id})
         db.session.commit()
         return True
