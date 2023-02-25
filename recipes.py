@@ -96,6 +96,14 @@ def edit_alcohol_status(recipe_id, status):
     except:
         return False
 
+def get_recipe_by_full_title(title):
+    command = "SELECT * FROM recipes WHERE title=:title"
+    try:
+        result = db.session.execute(command, {"title":title})
+        return result.fetchone()
+    except:
+        return False
+
 #TODO
 #get_recipes_by_ingredient(ingredient_id):
 #get_recipes_by_name(title)
