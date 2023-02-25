@@ -11,12 +11,11 @@ def register(username, password):
         db.session.commit()
     except:
         return False
-    return True
-    #return login(username, password)
+    return login(username, password)
 
 def login(username, password):
     command = "SELECT id, password FROM users WHERE username=:username"
-    result = db.session.execute(command, {"username":username})
+    result = db.session.execute(text(command), {"username":username})
     user = result.fetchone()
     if not user:
         return False

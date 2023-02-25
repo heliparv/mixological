@@ -1,11 +1,11 @@
 from app import app
-from flask import render_template, request, redirect
+from flask import render_template, request, redirect, session
 import users
 import recipes
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("index.html", id=users.get_user_id())
 
 @app.route("/add_recipe", methods=["GET", "POST"])
 def add_recipe():
@@ -55,7 +55,7 @@ def login():
         if users.login(username, password):
             return redirect("/")
         else:
-            return render_template("error.html", "Wrong username or password")
+            return render_template("error.html", message="Wrong username or password")
 
 @app.route("/logout")
 def logout():
@@ -74,4 +74,4 @@ def register():
             return render_template("error.html", message="Passwords don't match")
         elif users.register(username, password1):
             return redirect("/")
-        return render_template("error.html", message="Register failed, check database connection")
+        return render_template("error.html", message="Register failed. Username might be taken or database connection lost.")
