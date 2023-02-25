@@ -13,7 +13,6 @@ def add_recipe():
         return render_template("add_recipe.html")
     if request.method == "POST":
         title = request.form["title"]
-        #alcohol = request.form["alcohol"]
         value = recipes.add_new_recipe(title, request.form["alcohol"])
         if value:
             if value == -1:
@@ -21,16 +20,14 @@ def add_recipe():
             elif value == -2:
                 return render_template("error.html", message="Recipe title taken.")
             else:
-                edit_recipe(title)
+                session['title'] = title
+                return redirect("/edit_recipe")
         return render_template("error.html", message="Could not add new recipe.")
 
 @app.route("/edit_recipe")
-def edit_recipe(title):
-    #TODO
-    #currently not getting stuff from database because have not yet figured out how to database
-    title = "Shirley Temple"
-    alcohol = 0
-    return render_template("error.html", message="Recipe editing hasn't been coded yet")
+def edit_recipe():
+    recipe = recipes.get_recipe_by_full_title(session['title'])
+    return render_template("edit_recipe.html")
 
 @app.route("/view_recipe")
 def view_recipe():
