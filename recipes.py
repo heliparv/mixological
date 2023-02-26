@@ -103,7 +103,9 @@ def get_recipe_by_full_title(title):
     command = "SELECT * FROM recipes WHERE title=:title"
     try:
         result = db.session.execute(text(command), {"title":title})
-        return result.fetchone()
+        recipe = result.fetchone()
+        recipe_dict = {"id":recipe[0], "title":recipe[1], "alcohol":recipe[2], "directions":recipe[3], "user_id":recipe[4]}
+        return recipe_dict
     except:
         return False
 
