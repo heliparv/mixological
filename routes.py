@@ -5,7 +5,8 @@ import recipes
 
 @app.route("/")
 def index():
-    return render_template("index.html", id=users.get_user_id())
+    recipe_list = recipes.get_alphabetized_list_of_recipe_titles()
+    return render_template("index.html", id=users.get_user_id(), recipes=recipe_list)
 
 @app.route("/add_recipe", methods=["GET", "POST"])
 def add_recipe():

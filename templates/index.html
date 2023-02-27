@@ -16,5 +16,7 @@
 {% endif %}
 <br>
 <hr>
-<p>Here's where the recipe list would be if the database was working as it should</p>
+{% for recipe in recipes %}
+<a href="/view_recipe">{{recipe[0]}}</a><br>
+{% endfor %}
 {% endblock %}
