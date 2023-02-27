@@ -27,6 +27,12 @@ def add_directions(recipe_id, text):
     except:
         return False
 
+def get_alphabetized_list_of_recipe_titles():
+    command = "SELECT title FROM recipes ORDER BY title"
+    result = db.session.execute((text(command)))
+    recipe_list = result.fetchall()
+    return recipe_list
+
 def add_ingredient_to_recipe(recipe_id, ingredient_id, quantity):
     command = "INSERT INTO contents (ingredient_id, quantity, recipe_id) VALUES (:ingredient_id, :quantity, :recipe_id)"
     try:
