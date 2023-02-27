@@ -3,15 +3,18 @@
 {% block title %}Edit recipe{% endblock %}
 {% block content %}
 <p>Log in</p>
-Nimi + editointimahdollisuus
-alkoholistatus + editointimahdollisuus
-valikko jossa etsiä olemassaoleva aines
-pakka jossa lisätä oma aines
-Ohje-editori
-<form action="/login" method="POST">
-    <p>Recipe name:<br> <input type="text" name="title"> </p>
-    <p>Cocktail or mocktail:<br> <input type=AAAAAAAAA choose from optionnnnnnnnnns how?> </p>
-    <input type="submit" value="Next">
+<form action="/edit_recipe" method="POST">
+    <p>Recipe name: <input type="text" name="title" value={{name}}> </p>
+    {% if alcohol == 0 %}
+    <p><input type="radio" name="alcohol" value="1">cocktail
+    <input type="radio" name="alcohol" value="0" checked>mocktail </p>
+    {% else %}
+    <p><input type="radio" name="alcohol" value="1" checked>cocktail
+    <input type="radio" name="alcohol" value="0">mocktail </p>
+    {% endif %}
+    <p>Directions:<br>
+    <textarea name="directions" rows="5" cols="50">{{directions}}</textarea></p>
+    <input type="submit" value="Save edit">
 </form>
 
 <a href="/">Return to front page</a>

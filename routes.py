@@ -27,7 +27,10 @@ def add_recipe():
 @app.route("/edit_recipe")
 def edit_recipe():
     recipe = recipes.get_recipe_by_full_title(session['title'])
-    return render_template("edit_recipe.html")
+    return render_template("edit_recipe.html",
+                           name=recipe['title'],
+                           alcohol=recipe['alcohol'],
+                           directions=recipe['directions'])
 
 @app.route("/view_recipe")
 def view_recipe():
