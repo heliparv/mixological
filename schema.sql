@@ -17,6 +17,7 @@ CREATE TABLE ingredients (
 CREATE TABLE contents (
     id SERIAL PRIMARY KEY,
     ingredient_id INTEGER REFERENCES ingredients,
+    ingredient_name TEXT,
     quantity TEXT,
     recipe_id INTEGER REFERENCES recipes
 );
