@@ -4,7 +4,7 @@
 {% block content %}
 <p>Log in</p>
 <form action="/edit_recipe" method="POST">
-    <p>Recipe name: <input type="text" name="title" value={{name}}> </p>
+    <p>Recipe name: <textarea name="title" rows="1" cols="50">{{name}}</textarea> </p>
     {% if alcohol == 0 %}
     <p><input type="radio" name="alcohol" value="1">cocktail
     <input type="radio" name="alcohol" value="0" checked>mocktail </p>
