@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+{% extends "layout.html" %}
+{% block title %}Add new ingredient{% endblock %}
+{% block content %}
+Choose an ingredient from mixological directory or add a new one to the directory and your recipe.
+<form action="/add_ingredient" method="POST">
+    <p>New ingredient: <input type="text" name="ingredient"> </p>
+    <p>Quantity: <input type="text" name="quantity"></p>
+    <input type="hidden" name="action" value="new">
+    <input type="submit" value="Add new ingredient">
+</form>
+
+<a href="/">Return to front page</a>
+{% endblock %}

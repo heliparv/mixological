@@ -21,13 +21,13 @@ def add_recipe():
             elif value == -2:
                 return render_template("error.html", message="Recipe title taken.")
             else:
-                session['title'] = title
+                session['recipe_id'] = recipes.get_recipe_id_by_full_title(title)
                 return redirect("/edit_recipe")
         return render_template("error.html", message="Could not add new recipe.")
 
-@app.route("/edit_recipe")
+@app.route("/edit_recipe", methods=["GET", "POST"])
 def edit_recipe():
-    recipe = recipes.get_recipe_by_full_title(session['title'])
+    recipe = recipes.get_recipe_by_id(session['recipe_id'])
     return render_template("edit_recipe.html",
                            name=recipe['title'],
                            alcohol=recipe['alcohol'],
@@ -35,18 +35,29 @@ def edit_recipe():
 
 @app.route("/view_recipe")
 def view_recipe():
-    #TODO
-    #here's where we would get recipe info
-    #but now just testing layout with some values
-    title = "Shirley Temple"
-    alcohol = "moctail"
+    recipe = recipes.get_recipe_by_id(session['recipe_id'])
+    ingredients = recipes.get_contents_by_recipe_id(session['recipe_id'])
     ingredients = [["grenadine", "0.75 cl"],
                    ["lemon juice", "1 cl"],
                    ["ginger beer", "10 cl"],
                    ["ice", ""],
                    ["cherry", "1"]]
-    directions = "Fill glass with ice, pour grenadine and ginger beer, mix and garnish with cherry"
-    return render_template("view_recipe.html", title=title, alcohol=alcohol, ingredients=ingredients, directions=directions)
+    return render_template("view_recipe.html", title=recipe['title'], alcohol=recipe['alcohol'], ingredients=ingredients, directions=recipe['directions'])
+
+@app.route("/add_ingredient", methods=["GET", "POST"])
+def add_ingredient():
+    if request.method == "GET":
+        return render_template("add_ingredient.html")
+    if request.method == "POST":
+        if request.form["action"] == "new":
+            ingredient = request.form["ingredient"]
+            ingredient_id = recipes.create_new_ingredient(ingredient)
+            if not ingredient_id:
+                return redirect("/error", message="Could not create new ingredient")
+            added = recipes.add_ingredient_to_recipe(session['recipe_id'], ingredient_id, ingredient, request.form["quantity"])
+            if not added:
+                return redirect("/error", message="Could not add ingredient to recipe")
+            return redirect("/edit_recipe")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():

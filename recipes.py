@@ -33,20 +33,20 @@ def get_alphabetized_list_of_recipe_titles():
     recipe_list = result.fetchall()
     return recipe_list
 
-def add_ingredient_to_recipe(recipe_id, ingredient_id, quantity):
-    command = "INSERT INTO contents (ingredient_id, quantity, recipe_id) VALUES (:ingredient_id, :quantity, :recipe_id)"
-    try:
-        db.session.execute(text(command), {"ingredient_id":ingredient_id, "quantity":quantity, "recipe_id":recipe_id})
-        db.session.commit()
-        return True
-    except:
-        return False
+def add_ingredient_to_recipe(recipe_id, ingredient_id, ingredient_name, quantity):
+    command = "INSERT INTO contents (ingredient_id, ingredient_name, quantity, recipe_id) VALUES (:ingredient_id, :ingredient_name, :quantity, :recipe_id)"
+    #try:
+    db.session.execute(text(command), {"ingredient_id":ingredient_id, "ingredient_name":ingredient_name, "quantity":quantity, "recipe_id":recipe_id})
+    db.session.commit()
+    return True
+    #except:
+     #   return False
 
 def get_recipe_by_id(recipe_id):
-    command = "SELECT title, alcohol, directions FROM recipes WHERE id=:recipe_id"
+    command = "SELECT * FROM recipes WHERE id=:recipe_id"
     result = db.session.execute(text(command), {"recipe_id":recipe_id})
-    recipe = result.fetchall()
-    return recipe
+    recipe = result.fetchone()
+    return recipe_to_dictionary(recipe)
 
 def get_contents_by_recipe_id(recipe_id):
     command = "SELECT ingredient_id, quantity FROM recipes WHERE recipe_id=:recipe_id"
@@ -66,7 +66,7 @@ def create_new_ingredient(ingredient):
     try:
         db.session.execute(text(command), {"ingredient":ingredient})
         db.session.commit()
-        return True
+        return get_ingredient_id_by_name(ingredient)
     except:
         return False
 
@@ -74,7 +74,8 @@ def get_ingredient_id_by_name(ingredient):
     command = "SELECT id FROM ingredients WHERE ingredient=:ingredient"
     try:
         result = db.session.execute(text(command), {"ingredient":ingredient})
-        return result.fetchone()
+        id = result.fetchone()
+        return id[0]
     except:
         return False
 
@@ -110,10 +111,22 @@ def get_recipe_by_full_title(title):
     try:
         result = db.session.execute(text(command), {"title":title})
         recipe = result.fetchone()
-        recipe_dict = {"id":recipe[0], "title":recipe[1], "alcohol":recipe[2], "directions":recipe[3], "user_id":recipe[4]}
+        recipe_dict = recipe_to_dictionary(recipe)
         return recipe_dict
     except:
         return False
+
+def get_recipe_id_by_full_title(title):
+    command = "SELECT id FROM recipes WHERE title=:title"
+    try:
+        result = db.session.execute(text(command), {"title":title})
+        id = result.fetchone()
+        return id[0]
+    except:
+        return False
+
+def recipe_to_dictionary(recipe):
+    return {"id":recipe[0], "title":recipe[1], "alcohol":recipe[2], "directions":recipe[3], "user_id":recipe[4]}
 
 #TODO
 #get_recipes_by_ingredient(ingredient_id):
