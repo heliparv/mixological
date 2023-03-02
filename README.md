@@ -81,6 +81,13 @@ Run app
 flask run
 ```
 
+#### Dropping tables
+If you want to drop the tables in this project from the database, you can do so in your virtual environment with the command
+```bash
+psql < drop.sql
+```
+NOTE! If you have databases with the same names as in this project but for use in other projects, this will drop those databases.
+
 
 ### Description of desired features
 #### Core features
