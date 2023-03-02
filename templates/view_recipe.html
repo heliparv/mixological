@@ -4,7 +4,11 @@
 {% block content %}
 
 <h2>{{title}}</h2>
-{{alcohol}}
+{% if alcohol == 0%}
+Mocktail
+{% else %}
+Cocktail
+{% endif %}
 <br>
 <br>
 {% for ingredient in ingredients %}
