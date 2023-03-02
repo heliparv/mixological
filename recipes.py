@@ -35,12 +35,12 @@ def get_alphabetized_list_of_recipe_titles():
 
 def add_ingredient_to_recipe(recipe_id, ingredient_id, ingredient_name, quantity):
     command = "INSERT INTO contents (ingredient_id, ingredient_name, quantity, recipe_id) VALUES (:ingredient_id, :ingredient_name, :quantity, :recipe_id)"
-    #try:
-    db.session.execute(text(command), {"ingredient_id":ingredient_id, "ingredient_name":ingredient_name, "quantity":quantity, "recipe_id":recipe_id})
-    db.session.commit()
-    return True
-    #except:
-     #   return False
+    try:
+        db.session.execute(text(command), {"ingredient_id":ingredient_id, "ingredient_name":ingredient_name, "quantity":quantity, "recipe_id":recipe_id})
+        db.session.commit()
+        return True
+    except:
+        return False
 
 def get_recipe_by_id(recipe_id):
     command = "SELECT * FROM recipes WHERE id=:recipe_id"
@@ -49,17 +49,13 @@ def get_recipe_by_id(recipe_id):
     return recipe_to_dictionary(recipe)
 
 def get_contents_by_recipe_id(recipe_id):
-    command = "SELECT ingredient_id, quantity FROM recipes WHERE recipe_id=:recipe_id"
-    try:
-        result = db.session.execute(text(command), {"recipe_id":recipe_id})
-        contents = result.fetchall()
-        ingredients = []
-    #for i in contents:
-    #choose ingredient name based on ingredient id in result, haven't figured it out
-    #not sure if ditching ingredients table would be better
-        return contents, ingredients
-    except:
-        return False
+    command = "SELECT * FROM contents WHERE recipe_id=:recipe_id"
+    #try:
+    result = db.session.execute(text(command), {"recipe_id":recipe_id})
+    contents = result.fetchall()
+    return contents
+    #except:
+    #    return False
 
 def create_new_ingredient(ingredient):
     command = "INSERT INTO ingredients (ingredient) VALUES (:ingredient)"

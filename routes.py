@@ -37,11 +37,7 @@ def edit_recipe():
 def view_recipe():
     recipe = recipes.get_recipe_by_id(session['recipe_id'])
     ingredients = recipes.get_contents_by_recipe_id(session['recipe_id'])
-    ingredients = [["grenadine", "0.75 cl"],
-                   ["lemon juice", "1 cl"],
-                   ["ginger beer", "10 cl"],
-                   ["ice", ""],
-                   ["cherry", "1"]]
+    print(ingredients)
     return render_template("view_recipe.html", title=recipe['title'], alcohol=recipe['alcohol'], ingredients=ingredients, directions=recipe['directions'])
 
 @app.route("/add_ingredient", methods=["GET", "POST"])
