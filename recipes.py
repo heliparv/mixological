@@ -43,19 +43,22 @@ def add_ingredient_to_recipe(recipe_id, ingredient_id, ingredient_name, quantity
         return False
 
 def get_recipe_by_id(recipe_id):
-    command = "SELECT * FROM recipes WHERE id=:recipe_id"
-    result = db.session.execute(text(command), {"recipe_id":recipe_id})
-    recipe = result.fetchone()
-    return recipe_to_dictionary(recipe)
+    try:
+        command = "SELECT * FROM recipes WHERE id=:recipe_id"
+        result = db.session.execute(text(command), {"recipe_id":recipe_id})
+        recipe = result.fetchone()
+        return recipe_to_dictionary(recipe)
+    except:
+        return False
 
 def get_contents_by_recipe_id(recipe_id):
     command = "SELECT * FROM contents WHERE recipe_id=:recipe_id"
-    #try:
-    result = db.session.execute(text(command), {"recipe_id":recipe_id})
-    contents = result.fetchall()
-    return contents
-    #except:
-    #    return False
+    try:
+        result = db.session.execute(text(command), {"recipe_id":recipe_id})
+        contents = result.fetchall()
+        return contents
+    except:
+        return False
 
 def create_new_ingredient(ingredient):
     command = "INSERT INTO ingredients (ingredient) VALUES (:ingredient)"

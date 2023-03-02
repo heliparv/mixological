@@ -6,6 +6,12 @@ Choose an ingredient from mixological directory or add a new one to the director
 <form action="/add_ingredient" method="POST">
     <p>New ingredient: <input type="text" name="ingredient"> </p>
     <p>Quantity: <input type="text" name="quantity"></p>
+    <input type="hidden" name="action" value="existing">
+    <input type="submit" value="Add new ingredient">
+</form>
+<form action="/add_ingredient" method="POST">
+    <p>New ingredient: <input type="text" name="ingredient"> </p>
+    <p>Quantity: <input type="text" name="quantity"></p>
     <input type="hidden" name="action" value="new">
     <input type="submit" value="Add new ingredient">
 </form>

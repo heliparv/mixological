@@ -37,8 +37,10 @@ def edit_recipe():
 def view_recipe():
     recipe = recipes.get_recipe_by_id(session['recipe_id'])
     ingredients = recipes.get_contents_by_recipe_id(session['recipe_id'])
-    print(ingredients)
-    return render_template("view_recipe.html", title=recipe['title'], alcohol=recipe['alcohol'], ingredients=ingredients, directions=recipe['directions'])
+    if recipe and ingredients:
+        return render_template("view_recipe.html", title=recipe['title'], alcohol=recipe['alcohol'], ingredients=ingredients, directions=recipe['directions'])
+    else:
+        return render_template("error.html", message="Could not retrieve recipe data from database.")
 
 @app.route("/add_ingredient", methods=["GET", "POST"])
 def add_ingredient():
