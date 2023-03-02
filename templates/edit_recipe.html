@@ -3,6 +3,7 @@
 {% block title %}Edit recipe{% endblock %}
 {% block content %}
 <p>Log in</p>
+<a href="/add_ingredient">Add an ingredient to the recipe</a>
 <form action="/edit_recipe" method="POST">
     <p>Recipe name: <textarea name="title" rows="1" cols="50">{{name}}</textarea> </p>
     {% if alcohol == 0 %}
