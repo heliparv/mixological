@@ -45,17 +45,23 @@ def view_recipe():
 @app.route("/add_ingredient", methods=["GET", "POST"])
 def add_ingredient():
     if request.method == "GET":
-        return render_template("add_ingredient.html")
+        ingredient_list = recipes.get_alphabetized_list_of_ingredients()
+        return render_template("add_ingredient.html", ingredients=ingredient_list)
     if request.method == "POST":
         if request.form["action"] == "new":
             ingredient = request.form["ingredient"]
             ingredient_id = recipes.create_new_ingredient(ingredient)
             if not ingredient_id:
                 return redirect("/error", message="Could not create new ingredient")
-            added = recipes.add_ingredient_to_recipe(session['recipe_id'], ingredient_id, ingredient, request.form["quantity"])
-            if not added:
-                return redirect("/error", message="Could not add ingredient to recipe")
-            return redirect("/edit_recipe")
+        else:
+            choice = request.form["ingredient"]
+            choice = choice.split(",")
+            ingredient_id = choice[0]
+            ingredient = choice[1]
+        added = recipes.add_ingredient_to_recipe(session['recipe_id'], ingredient_id, ingredient, request.form["quantity"])
+        if not added:
+            return redirect("/error", message="Could not add ingredient to recipe")
+        return redirect("/edit_recipe")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():

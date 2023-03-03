@@ -133,5 +133,14 @@ def get_recipe_id_by_full_title(title):
 def recipe_to_dictionary(recipe):
     return {"id":recipe[0], "title":recipe[1], "alcohol":recipe[2], "directions":recipe[3], "user_id":recipe[4]}
 
+def get_ingredient_id_by_name(name):
+    command = "SELECT id FROM ingredient WHERE ingredient=:name"
+    try:
+        result = db.session.execute(text(command), {"name":name})
+        id = result.fetchone()
+        return id[0]
+    except:
+        return False
+
 #TODO
 #get_recipes_by_ingredient(ingredient_id):
