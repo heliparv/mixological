@@ -33,6 +33,12 @@ def get_alphabetized_list_of_recipe_titles():
     recipe_list = result.fetchall()
     return recipe_list
 
+def get_alphabetized_list_of_ingredients():
+    command = "SELECT * FROM ingredients ORDER BY ingredient"
+    result = db.session.execute((text(command)))
+    ingredients = result.fetchall()
+    return ingredients
+
 def add_ingredient_to_recipe(recipe_id, ingredient_id, ingredient_name, quantity):
     command = "INSERT INTO contents (ingredient_id, ingredient_name, quantity, recipe_id) VALUES (:ingredient_id, :ingredient_name, :quantity, :recipe_id)"
     try:
