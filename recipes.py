@@ -120,6 +120,14 @@ def edit_alcohol_status(recipe_id, status):
     except:
         pass
 
+def edit_recipe_directions(recipe_id, new_directions):
+    command = "UPDATE recipes SET directions=:new_directions WHERE id=:recipe_id"
+    try:
+        db.session.execute(text(command), {"new_directions":new_directions, "recipe_id":recipe_id})
+        db.session.commit()
+    except:
+        pass
+
 def get_recipe_by_full_title(title):
     command = "SELECT * FROM recipes WHERE title=:title"
     try:
