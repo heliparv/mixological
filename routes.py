@@ -1,18 +1,24 @@
 from app import app
 from flask import render_template, request, redirect, session
+from secrets import token_hex
 import users
 import recipes
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def index():
-    recipe_list = recipes.get_alphabetized_list_of_recipe_titles()
-    return render_template("index.html", id=users.get_user_id(), recipes=recipe_list)
+    if request.method == "GET":
+        recipe_list = recipes.get_alphabetized_list_of_recipes()
+        return render_template("index.html", id=users.get_user_id(), recipes=recipe_list)
+    if request.method == "POST":
+        session['recipe_id'] = request.form["recipe_id"]
+        return redirect("/view_recipe")
 
 @app.route("/add_recipe", methods=["GET", "POST"])
 def add_recipe():
     if request.method == "GET":
         return render_template("add_recipe.html")
     if request.method == "POST":
+        check_token()
         title = request.form["title"]
         value = recipes.add_new_recipe(title, request.form["alcohol"])
         if value:
@@ -27,11 +33,14 @@ def add_recipe():
 
 @app.route("/edit_recipe", methods=["GET", "POST"])
 def edit_recipe():
-    recipe = recipes.get_recipe_by_id(session['recipe_id'])
-    return render_template("edit_recipe.html",
-                           name=recipe['title'],
-                           alcohol=recipe['alcohol'],
-                           directions=recipe['directions'])
+    if request.method == "GET":
+        recipe = recipes.get_recipe_by_id(session['recipe_id'])
+        return render_template("edit_recipe.html",
+                               name=recipe['title'],
+                               alcohol=recipe['alcohol'],
+                               directions=recipe['directions'])
+    if request.method == "POST":
+        check_token()
 
 @app.route("/view_recipe")
 def view_recipe():
@@ -48,6 +57,7 @@ def add_ingredient():
         ingredient_list = recipes.get_alphabetized_list_of_ingredients()
         return render_template("add_ingredient.html", ingredients=ingredient_list)
     if request.method == "POST":
+        check_token()
         if request.form["action"] == "new":
             ingredient = request.form["ingredient"]
             ingredient_id = recipes.create_new_ingredient(ingredient)
@@ -71,6 +81,7 @@ def login():
         username = request.form["username"]
         password = request.form["password"]
         if users.login(username, password):
+            session["csrf_token"] = token_hex(16)
             return redirect("/")
         else:
             return render_template("error.html", message="Wrong username or password")
@@ -78,6 +89,7 @@ def login():
 @app.route("/logout")
 def logout():
     users.logout()
+    session["csrf_token"] = 0
     return redirect("/")
 
 @app.route("/register", methods=["GET", "POST"])
@@ -91,5 +103,12 @@ def register():
         if password1 != password2:
             return render_template("error.html", message="Passwords don't match")
         elif users.register(username, password1):
+            session["csrf_token"] = token_hex(16)
             return redirect("/")
         return render_template("error.html", message="Register failed. Username might be taken or database connection lost.")
+
+def check_token():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        users.logout()
+        session["csrf_token"] = 0
+        return redirect("error.html", message="You don't have the correct credentials to do this. Try logging in again.")
