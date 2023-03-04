@@ -1,6 +1,5 @@
 from app import app
 from flask import render_template, request, redirect, session
-from secrets import token_hex
 import users
 import recipes
 
@@ -97,7 +96,6 @@ def login():
         username = request.form["username"]
         password = request.form["password"]
         if users.login(username, password):
-            session["csrf_token"] = token_hex(16)
             return redirect("/")
         else:
             return render_template("error.html", message="Wrong username or password")
@@ -105,7 +103,6 @@ def login():
 @app.route("/logout")
 def logout():
     users.logout()
-    session["csrf_token"] = 0
     return redirect("/")
 
 @app.route("/register", methods=["GET", "POST"])
@@ -119,7 +116,6 @@ def register():
         if password1 != password2:
             return render_template("error.html", message="Passwords don't match")
         elif users.register(username, password1):
-            session["csrf_token"] = token_hex(16)
             return redirect("/")
         return render_template("error.html", message="Register failed. Username might be taken or database connection lost.")
 
