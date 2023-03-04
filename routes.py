@@ -52,6 +52,10 @@ def edit_recipe():
         new_directions = request.form["directions"]
         if new_directions != recipe["directions"]:
             recipes.edit_recipe_directions(session["recipe_id"], new_directions)
+        delete = request.form.getlist("delete")
+        if delete != []:
+            for ingredient_id in delete:
+                recipes.delete_ingredient_from_recipe(session["recipe_id"], ingredient_id)
         return redirect("/view_recipe")
 
 @app.route("/view_recipe")

@@ -99,9 +99,8 @@ def delete_ingredient_from_recipe(recipe_id, ingredient_id):
     try:
         db.session.execute(text(command), {"recipe_id":recipe_id, "ingredient_id":ingredient_id})
         db.session.commit()
-        return True
     except:
-        return False
+        pass
 
 def edit_ingredient_quantity_in_recipe(content_id, quantity):
     command = "UPDATE contents SET quantity=:quantity WHERE id=:content_id"
