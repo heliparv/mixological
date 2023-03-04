@@ -27,8 +27,8 @@ def add_directions(recipe_id, text):
     except:
         return False
 
-def get_alphabetized_list_of_recipe_titles():
-    command = "SELECT title FROM recipes ORDER BY title"
+def get_alphabetized_list_of_recipes():
+    command = "SELECT id, title FROM recipes ORDER BY title"
     result = db.session.execute((text(command)))
     recipe_list = result.fetchall()
     return recipe_list
@@ -62,6 +62,8 @@ def get_contents_by_recipe_id(recipe_id):
     try:
         result = db.session.execute(text(command), {"recipe_id":recipe_id})
         contents = result.fetchall()
+        if contents == []:
+            return [(0, 0, "No ingredients added yet", "", 0)]
         return contents
     except:
         return False
@@ -134,7 +136,7 @@ def recipe_to_dictionary(recipe):
     return {"id":recipe[0], "title":recipe[1], "alcohol":recipe[2], "directions":recipe[3], "user_id":recipe[4]}
 
 def get_ingredient_id_by_name(name):
-    command = "SELECT id FROM ingredient WHERE ingredient=:name"
+    command = "SELECT id FROM ingredients WHERE ingredient=:name"
     try:
         result = db.session.execute(text(command), {"name":name})
         id = result.fetchone()

@@ -13,11 +13,22 @@
     <p><input type="radio" name="alcohol" value="1" checked>cocktail
     <input type="radio" name="alcohol" value="0">mocktail </p>
     {% endif %}
+    <p>Check box to remove an ingredient:</p>
+    <p>
+    {% for ingredient in ingredients %}
+        {% if ingredient.1 %}
+            <input type="checkbox" name="delete" value={{ingredient.0}}>
+            {{ingredient.2}}
+            <br>
+        {% else %}
+        No ingredients added yet
+        {% endif %}
+    {% endfor %}
+    </p>
     <p>Directions:<br>
     <textarea name="directions" rows="5" cols="50">{{directions}}</textarea></p>
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     <input type="submit" value="Save edit">
 </form>
-
 <a href="/">Return to front page</a>
 {% endblock %}

@@ -35,10 +35,12 @@ def add_recipe():
 def edit_recipe():
     if request.method == "GET":
         recipe = recipes.get_recipe_by_id(session['recipe_id'])
+        ingredients = recipes.get_contents_by_recipe_id(session['recipe_id'])
         return render_template("edit_recipe.html",
                                name=recipe['title'],
                                alcohol=recipe['alcohol'],
-                               directions=recipe['directions'])
+                               directions=recipe['directions'],
+                               ingredients=ingredients)
     if request.method == "POST":
         check_token()
 
