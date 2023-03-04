@@ -15,8 +15,14 @@
 <a href="/register">Register</a>
 {% endif %}
 <br>
-<hr>
 {% for recipe in recipes %}
-<a href="/view_recipe">{{recipe[0]}}</a><br>
+    <hr>
+    <form action="/" method="POST">
+        {{recipe.1}}
+        <br>
+        <input type="hidden" name="recipe_id" value={{recipe[0]}}>
+        <input type="submit" value="View recipe">
+    </form>
+    <br>
 {% endfor %}
 {% endblock %}
