@@ -46,6 +46,9 @@ def edit_recipe():
         new_title = request.form["title"]
         if new_title != recipe["title"]:
             recipes.edit_recipe_title(session["recipe_id"], new_title)
+        new_alcohol_status = request.form["alcohol"]
+        if new_alcohol_status != recipe["alcohol"]:
+            recipes.edit_alcohol_status(session["recipe_id"], new_alcohol_status)
         return redirect("/view_recipe")
 
 @app.route("/view_recipe")
