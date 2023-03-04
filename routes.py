@@ -33,9 +33,9 @@ def add_recipe():
 
 @app.route("/edit_recipe", methods=["GET", "POST"])
 def edit_recipe():
+    recipe = recipes.get_recipe_by_id(session['recipe_id'])
+    ingredients = recipes.get_contents_by_recipe_id(session['recipe_id'])
     if request.method == "GET":
-        recipe = recipes.get_recipe_by_id(session['recipe_id'])
-        ingredients = recipes.get_contents_by_recipe_id(session['recipe_id'])
         return render_template("edit_recipe.html",
                                name=recipe['title'],
                                alcohol=recipe['alcohol'],
@@ -43,6 +43,10 @@ def edit_recipe():
                                ingredients=ingredients)
     if request.method == "POST":
         check_token()
+        new_title = request.form["title"]
+        if new_title != recipe["title"]:
+            recipes.edit_recipe_title(session["recipe_id"], new_title)
+        return redirect("/view_recipe")
 
 @app.route("/view_recipe")
 def view_recipe():

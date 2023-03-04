@@ -86,6 +86,11 @@ def get_ingredient_id_by_name(ingredient):
     except:
         return False
 
+def edit_recipe_title(recipe_id, new_title):
+    command = "UPDATE recipes SET title=:new_title WHERE id=:recipe_id"
+    db.session.execute(text(command), {"new_title":new_title, "recipe_id":recipe_id})
+    db.session.commit()
+
 def delete_ingredient_from_recipe(recipe_id, ingredient_id):
     command = "DELETE FROM contents WHERE recipe_id=:recipe_id AND ingredient_id=:ingredient_id"
     try:
