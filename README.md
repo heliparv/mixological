@@ -4,8 +4,23 @@ A small app to save and find recipes for cocktails and moctails
 This is a studies project for [the University of Helsinki course Database Application](https://studies.helsinki.fi/courses/cu/hy-CU-118025659-2021-08-01)
 
 ### Project status
-The project is in the "merry" situation that I have not for the life of me been able to run the database in this project or any other database app on my computer (even the ones that were previously working), but have not had the time to come to campus and ask IT or course assistants so... :)
+The project can only be tested locally.
+The project could be more refined, but it basically functional. There might be a second release with better visuals and refinements, if I somehow have time and energy before the deadline.
 
+### Description of features
+- Users can register, log in and log out
+- Users can create, edit and delete recipes for coctails and mocktails
+- Users can view an alphabetized list of recipes
+- Users can rate recipes, change their rating, view their rating, and view an average rating
+
+### Possible future features
+- users can delete a recipe
+- users can filter recipe list by cocktail/mocktail status
+- Users can search recipes by name
+- Users can search recipes by ingredients
+- Users can view a list of recipes ranked by their rating
+- Users can view a list of recipes ranked by average rating
+- recipes can only be edited or deleted by the original author or admin
 
 ### How to test project
 
@@ -53,6 +68,11 @@ Return to the terminal with your virtual environment and get the database schema
 psql < schema.sql
 ```
 
+If you want to test the app with some pre-initiated recipes and ratings by other users, you can add data to the database by running a scrip with
+```bash
+psql < add_data.sql
+```
+
 Run app
 ```bash
 flask run
@@ -87,25 +107,3 @@ If you want to drop the tables in this project from the database, you can do so 
 psql < drop.sql
 ```
 NOTE! If you have databases with the same names as in this project but for use in other projects, this will drop those databases.
-
-
-### Description of desired features
-#### Core features
-- Users can log in
-- Users can save, edit and delete recipes for coctails and mocktails
-- Users can view an alphabetized list of recipes
-- Users can search recipes by name
-- Users can search recipes by ingredients
-
-#### Nice to have features
-- Users can rate recipes
-- Users can view a list of recipes ranked by rating
-- Recipes can be flagges as coctail or moctail
-- Users can view a list of only coctails or only mocktails
-- Users can make a recipe public
-- Users can view public recipes
-- Users can review public recipes, but can not edit or remove them
-- Admins can remove and edit public recipes, or set them as private to the original poster
-- Public recipes have an average rating
-- User can view a list of recipes containing their own and public recipes
-    - This list can be alphabetized or ranked by average rating
