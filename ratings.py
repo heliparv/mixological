@@ -12,6 +12,15 @@ def get_rating_by_user():
     except:
         return "-"
 
+def get_average_rating_for_recipe():
+    command = "SELECT AVG(rating) FROM ratings WHERE recipe_id=:recipe_id"
+    try:
+        result = db.session.execute(text(command), {"recipe_id":session["recipe_id"]})
+        rating = result.fetchone()
+        return round(rating[0], 1)
+    except:
+        return "-"
+
 def rate_recipe(rating):
     prev_rating = get_rating_by_user()
     if prev_rating == rating:
@@ -34,9 +43,3 @@ def edit_rating_on_recipe(new_rating):
         return True
     except:
         return False
-
-
-#TODO
-#get_recipe_average_rating(recipe_id)
-#rank_recipes_by_average()
-#rank_recipes_by_user_rating()

@@ -63,8 +63,9 @@ def view_recipe():
     recipe = recipes.get_recipe_by_id(session['recipe_id'])
     ingredients = recipes.get_contents_by_recipe_id(session['recipe_id'])
     user_rating = ratings.get_rating_by_user()
+    average_rating = ratings.get_average_rating_for_recipe()
     if recipe and ingredients:
-        return render_template("view_recipe.html", title=recipe['title'], alcohol=recipe['alcohol'], ingredients=ingredients, directions=recipe['directions'], user_rating=user_rating)
+        return render_template("view_recipe.html", title=recipe['title'], alcohol=recipe['alcohol'], ingredients=ingredients, directions=recipe['directions'], user_rating=user_rating, average_rating=average_rating)
     else:
         return render_template("error.html", message="Could not retrieve recipe data from database.")
 
