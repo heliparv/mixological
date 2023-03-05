@@ -65,9 +65,16 @@ def view_recipe():
     user_rating = ratings.get_rating_by_user()
     average_rating = ratings.get_average_rating_for_recipe()
     if recipe and ingredients:
-        return render_template("view_recipe.html", title=recipe['title'], alcohol=recipe['alcohol'], ingredients=ingredients, directions=recipe['directions'], user_rating=user_rating, average_rating=average_rating)
+        return render_template("view_recipe.html",
+                               title=recipe['title'],
+                               alcohol=recipe['alcohol'],
+                               ingredients=ingredients,
+                               directions=recipe['directions'],
+                               user_rating=user_rating,
+                               average_rating=average_rating)
     else:
-        return render_template("error.html", message="Could not retrieve recipe data from database.")
+        return render_template("error.html",
+                               message="Could not retrieve recipe data from database.")
 
 @app.route("/add_ingredient", methods=["GET", "POST"])
 def add_ingredient():
@@ -86,7 +93,10 @@ def add_ingredient():
             choice = choice.split(",")
             ingredient_id = choice[0]
             ingredient = choice[1]
-        added = recipes.add_ingredient_to_recipe(session['recipe_id'], ingredient_id, ingredient, request.form["quantity"])
+        added = recipes.add_ingredient_to_recipe(session['recipe_id'],
+                                                 ingredient_id,
+                                                 ingredient,
+                                                 request.form["quantity"])
         if not added:
             return redirect("/error", message="Could not add ingredient to recipe")
         return redirect("/edit_recipe")
@@ -101,7 +111,8 @@ def rate_recipe():
         rated = ratings.rate_recipe(rating)
         if rated:
             return redirect("/view_recipe")
-        return render_template("error.html", message="Could not add rating")
+        return render_template("error.html",
+                               message="Could not add rating")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -113,7 +124,8 @@ def login():
         if users.login(username, password):
             return redirect("/")
         else:
-            return render_template("error.html", message="Wrong username or password")
+            return render_template("error.html",
+                                   message="Wrong username or password")
 
 @app.route("/logout")
 def logout():
@@ -132,11 +144,13 @@ def register():
             return render_template("error.html", message="Passwords don't match")
         elif users.register(username, password1):
             return redirect("/")
-        return render_template("error.html", message="Register failed. Username might be taken or database connection lost.")
+        return render_template("error.html",
+                               message="Register failed. Username might be taken or database connection lost.")
 
 def check_token():
     if session["csrf_token"] != request.form["csrf_token"]:
         users.logout()
         session["csrf_token"] = 0
-        return redirect("error.html", message="You don't have the correct credentials to do this. Try logging in again.")
+        return redirect("error.html",
+                        message="You don't have the correct credentials to do this. Try logging in again.")
     
