@@ -2,15 +2,13 @@
 {% extends "layout.html" %}
 {% block title %}Frontpage{% endblock %}
 {% block header %}All of your favourite cocktail and mocktail recipes{% endblock %}
-
 {% block content %}
-
 {% if id != 0%}
 <a href="/add_recipe">Add a recipe</a>
 <br>
 <a href="/logout">Log out</a>
 {% else %}
-Log in or register to use Mixological
+<p>Log in or register to use Mixological</p>
 <br>
 <a href="/login">Log in</a>
 <br>
