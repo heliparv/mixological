@@ -10,13 +10,12 @@ Mocktail
 Cocktail
 {% endif %}
 <br><br>
-Average rating: {{average_rating}}<br>
-Your rating: {{user_rating}}/5
-<br>
+Average rating: {{average_rating}}/5<br>
+Your rating: {{user_rating}}/5<br>
 <a href="/rate_recipe">Rate recipe</a>
 <h4>Ingredients</h4>
 {% for ingredient in ingredients %}
-{{ingredient.2}}&emsp;{{ingredient.3}}<br>
+{{ingredient.2}}&emsp;&emsp;{{ingredient.3}}<br>
 {% endfor %}
 <br>
 <h4>Directions</h4>

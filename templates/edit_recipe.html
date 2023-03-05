@@ -2,7 +2,6 @@
 {% extends "layout.html" %}
 {% block title %}Edit recipe{% endblock %}
 {% block content %}
-<p>Log in</p>
 <a href="/add_ingredient">Add an ingredient to the recipe</a>
 <form action="/edit_recipe" method="POST">
     <p>Recipe name: <textarea name="title" rows="1" cols="50">{{name}}</textarea> </p>
@@ -18,7 +17,7 @@
     {% for ingredient in ingredients %}
         {% if ingredient.1 %}
             <input type="checkbox" name="delete" value={{ingredient.0}}>
-            {{ingredient.2}}
+            {{ingredient.2}}&emsp;&emsp;{{ingredient.3}}
             <br>
         {% else %}
         No ingredients added yet

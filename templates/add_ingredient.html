@@ -2,27 +2,28 @@
 {% extends "layout.html" %}
 {% block title %}Add new ingredient{% endblock %}
 {% block content %}
-Choose an ingredient from mixological directory or add a new one to the directory and your recipe.
+<br>
+<h3>Choose from existing ingredients</h3>
 <form action="/add_ingredient" method="POST">
-    <label for="choose">Choose an ingredient:</label>
+    <label for="choose">Ingredient:</label>
     <p><select name="ingredient" id="choose">
         {% for ingredient in ingredients %}
         <option value={{ingredient.0}},{{ingredient.1}}>{{ingredient.1}}</option>
         {% endfor %}
     </select></p>
-    <p>Quantity: <input type="text" name="quantity"></p>
+    <p>Quantity: <input type="text" name="quantity" required></p>
     <input type="hidden" name="action" value="existing">
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     <input type="submit" value="Choose ingredient">
 </form>
-<h3>or</h3>
+<h3>or create a new ingredient</h3>
 <form action="/add_ingredient" method="POST">
-    <p>New ingredient: <input type="text" name="ingredient"> </p>
-    <p>Quantity: <input type="text" name="quantity"></p>
+    <p>Ingredient name: <input type="text" name="ingredient" required> </p>
+    <p>Quantity: <input type="text" name="quantity" required></p>
     <input type="hidden" name="action" value="new">
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     <input type="submit" value="Add new ingredient">
 </form>
-
+<hr>
 <a href="/">Return to front page</a>
 {% endblock %}
