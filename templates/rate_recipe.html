@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% extends "layout.html" %}
+{% block title %}{{title}}{% endblock %}
+{% block content %}
+
+<h3>Rating recipe: {{title}}</h3>
+<form action="/rate_recipe" method="POST">
+    <p><input type="radio" name="rating" value="1">1
+        <input type="radio" name="rating" value="2">2
+        <input type="radio" name="rating" value="3">3
+        <input type="radio" name="rating" value="4">4
+        <input type="radio" name="rating" value="5">5</p>
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+    <input type="submit" value="Rate">
+</form>
+<a href="/view_recipe">Back</a>
+<hr>
+<a href="/">Return to front page</a>
+{% endblock %}

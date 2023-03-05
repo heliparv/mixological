@@ -2,6 +2,7 @@ from app import app
 from flask import render_template, request, redirect, session
 import users
 import recipes
+import ratings
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -61,8 +62,9 @@ def edit_recipe():
 def view_recipe():
     recipe = recipes.get_recipe_by_id(session['recipe_id'])
     ingredients = recipes.get_contents_by_recipe_id(session['recipe_id'])
+    user_rating = ratings.get_rating_by_user(session['recipe_id'])
     if recipe and ingredients:
-        return render_template("view_recipe.html", title=recipe['title'], alcohol=recipe['alcohol'], ingredients=ingredients, directions=recipe['directions'])
+        return render_template("view_recipe.html", title=recipe['title'], alcohol=recipe['alcohol'], ingredients=ingredients, directions=recipe['directions'], user_rating=user_rating)
     else:
         return render_template("error.html", message="Could not retrieve recipe data from database.")
 
@@ -87,6 +89,18 @@ def add_ingredient():
         if not added:
             return redirect("/error", message="Could not add ingredient to recipe")
         return redirect("/edit_recipe")
+
+@app.route("/rate_recipe", methods=["GET", "POST"])
+def rate_recipe():
+    if request.method == "GET":
+        return render_template("rate_recipe.html")
+    if request.method == "POST":
+        check_token()
+        rating = request.form["rating"]
+        rated = ratings.rate_recipe(rating)
+        if rated:
+            return redirect("/view_recipe")
+        return render_template("error.html", message="Could not add rating")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -124,3 +138,4 @@ def check_token():
         users.logout()
         session["csrf_token"] = 0
         return redirect("error.html", message="You don't have the correct credentials to do this. Try logging in again.")
+    

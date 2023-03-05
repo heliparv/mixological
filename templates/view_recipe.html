@@ -10,6 +10,9 @@ Mocktail
 Cocktail
 {% endif %}
 <br>
+Your rating: {{user_rating}}/5
+<br>
+<a href="/rate_recipe">Rate recipe</a>
 <h4>Ingredients</h4>
 {% for ingredient in ingredients %}
 {{ingredient.2}}&emsp;{{ingredient.3}}<br>
