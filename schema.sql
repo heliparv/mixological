@@ -22,6 +22,7 @@ CREATE TABLE contents (
     recipe_id INTEGER REFERENCES recipes
 );
 CREATE TABLE ratings (
+    id SERIAL PRIMARY KEY,
     rating INTEGER,
     user_id INTEGER REFERENCES users,
     recipe_id INTEGER REFERENCES recipes
